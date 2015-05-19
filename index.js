@@ -1,9 +1,19 @@
 var APP_ID = process.env.APP_ID;
-var http = require('http');
+var express = require('express');
+var app = express();
+var cool = require('cool-ascii-faces');
 
-http.createServer(function (request, response) {
-  response.writeHead(200, {'Content-Type': 'text/plain'});
-  response.end('あなたのAPP_IDは、'+APP_ID+' です。');
-}).listen(8124);
+app.set('port', (process.env.PORT || 5000));
+app.use(express.static(__dirname + '/public'));
 
-console.log('Server running at port 8124');
+app.get('/', function(request, response) {
+    var result = '';
+    var times = process.env.TIMES || 5;
+    for(i=0; i<times;i++)
+        result += cool()+"  < Hello World!! )<br />";
+  response.send(result);
+});
+
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
