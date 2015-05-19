@@ -1,0 +1,14 @@
+{
+  "name": "estat_getter",
+  "version": "1.0.0",
+  "description": "A sample e-Stat Getter",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+  },
+  "engines": {
+    "node": "0.12.2"
+  }
+}
