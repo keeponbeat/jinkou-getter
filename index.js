@@ -1,9 +1,17 @@
 var APP_ID = process.env.APP_ID;
-var http = require('http');
+var net = require('net');
 var url = require('url');
 
-http.createServer(function (req, res) {
-  var query = url.parse(req.url,true).query;
-  res.writeHead(200);
-  res.end("こにちわ！APP_IDは"+APP_ID+"です。\n" + query.year + "年度のデータです。");
-}).listen(process.env.PORT || 5000);
+var server = net.createServer(function (c){
+  console.log('client connected');
+  c.on('end',function(){
+    console.log('client end');
+  });
+  c.on('data',function(data){
+    c.pipe(c);
+  });
+});
+
+server.listen( process.env.PORT || 5000, function(){
+    console.log('server bound');
+});
