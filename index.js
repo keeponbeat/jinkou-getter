@@ -1,19 +1,14 @@
 var APP_ID = process.env.APP_ID;
-var WebSocketServer = require('ws').Server;
-var wsServer = new WebSocketServer({ port: process.env.PORT || 5000});
+var server = require('http').createServer().listen(process.env.PORT || 5000);
+var io = require('socket.io')(server);
 
-wsServer.on('connection',function(c){
-    //heartbeat
-    var id = setInterval(function() {
-    c.send(JSON.stringify(new Date()), function() {  })
-    }, 1000);
+io.on('connection',function(socket){
 
-    c.on('message',function(message){
-    c.send(message);
+    socket.on('request_data',function(year){
+    socket.emit('data',{data:year});
     });
 
-    c.on("close", function() {
-    console.log("websocket connection close")
-    clearInterval(id)
+    socket.on("close", function() {
+    console.log("connection close")
   })
 })
