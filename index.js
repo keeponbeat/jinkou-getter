@@ -1,7 +1,5 @@
 var APP_ID = process.env.APP_ID;
-var io = require('socket.io')({
-transports:'websocket'
-}).listen(process.env.PORT || 5000);
+var io = require('socket.io').listen(process.env.PORT || 5000);
 
 io.on('connection',function(socket){
     console.log('server bound');
