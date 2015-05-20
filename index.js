@@ -11,7 +11,5 @@ io.on('connection',function(socket){
         socket.emit('data',{data:year});
     });
 
-    socket.on("close", function() {
-        console.log("connection close")
   })
 })
